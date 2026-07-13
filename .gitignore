@@ -1,0 +1,67 @@
+## Gradle:
+.gradle/
+gradle-app.setting
+/build/
+/android/build/
+/core/build/
+/lwjgl2/build/
+/lwjgl3/build/
+/html/build/
+/teavm/build/
+/ios/build/
+/ios-moe/build/
+/headless/build/
+/server/build/
+/shared/build/
+
+## Java:
+*.class
+*.war
+*.ear
+hs_err_pid*
+.attach_pid*
+
+## Android:
+/android/libs/armeabi-v7a/
+/android/libs/arm64-v8a/
+/android/libs/x86/
+/android/libs/x86_64/
+/android/gen/
+/android/out/
+local.properties
+com_crashlytics_export_strings.xml
+
+## Robovm:
+/ios/robovm-build/
+
+## iOS:
+/ios/xcoderesource-config.json
+
+
+## Some personal files
+LIBGDX_TILED_GUIDE.md
+SCHEDULE.md
+CLAUDE.md
+.claude
+
+# runtime save data
+assets/saves/
+
+## Local asset rips (3.2GB, not for VCS):
+assets-full/
+
+## Game assets (not for VCS):
+assets/
+
+## App icons (not for VCS):
+lwjgl3/icons/
+lwjgl3/src/main/resources/*.png
+lwjgl3/src/main/resources/*.ico
+lwjgl3/src/main/resources/*.icns
+
+## IDE project files:
+.idea/
+
+## Instructor reference/template, not part of this submission:
+mmk/
+.git-backup/

@@ -1,0 +1,185 @@
+Assets and animations are provided, but you are highly encouraged to use your creativity by incorporating alternative assets, animations, or sound effects. Collaborating on the exercises is permitted and even recommended; however, the final code you submit must be written entirely by you. If you collaborate with anyone on a specific question, please credit their name in a comment at the beginning of that section's code. You can ask any questions or clarify ambiguities regarding this exercise in the designated Quora forum section. In addition to the mandatory code cleanliness rules, please note that the required components in this document are worth a total of 1255 points. These points are distributed as follows: 210 points for menus, 815 points for the main game, 25 points for cheat codes, 115 points for visual details, and 90 points for miscellaneous items. Write your code clearly, as you act as the software architect, and your structural decisions will be carefully reviewed by the teaching assistants during submission. Additionally, the relevant sound effects and assets are available for your use through the provided links.
+
+Important Grading Guidelines for Exercise 2:
+The final stage of the game requires you to reach the main hall, manage your character's health bar, and properly utilize knockback mechanics to survive until you defeat the boss. Defeating the boss requires utilizing a unique attack that you will design and implement. Using your primary weapon alongside abilities such as jumping and dashing, you must overcome obstacles and eliminate common enemies, known as mobs. The ultimate goal is to explore a dark, interconnected world and battle a variety of enemies using precise platforming, melee combat, and well-timed maneuvers. 
+
+For this Advanced Programming Computer Engineering exercise, you will implement a simplified version of the popular game "Hollow Knight," referred to here as "Knight Hollow". For a better understanding of the mechanics, you can watch an introductory gameplay video via the provided link. This project is a 2D action-adventure game in the Metroidvania genre, where players unlock various achievements and gameplay elements. To maintain simplicity within the scope of this project, the requirements will differ slightly from the original game. In this project, you will control the "Knight" character within a 2D side-scrolling environment. 
+
+Part One: Menus (210 Points Total)
+Main Menu Interface:
+• Safe initialization and entry into menus (10 points).
+• Display a list of available cheat codes to guide the player (5 points).
+• Dynamically display the game's movement and action keys—such as moving, jumping, dashing, and nail attacks—reflecting any changes made in the keyboard controller settings (5 points).
+• A "Quit Game" option (5 points).
+• You have the creative freedom to design the game-loading mechanism; grading will be based on its functional correctness, including the ability to choose between four previously saved game slots (10 points).
+• A button to toggle the game's language (5 points).
+• A guide menu displaying a list of the Knight's abilities and attributes, featuring text descriptions of mechanics like the health bar system and how to replenish the soul vessel by striking enemies (10 points).
+• A feature to safely remap keyboard controllers with a default button to reset them to their original keybindings (15 points).
+• An option to start a new game (5 points).
+• The main menu must include clearly labeled navigation buttons for the following sections, each worth 5 points: Game Start (5 points), Settings (5 points), Guide Menu (5 points), and Achievements (5 points).
+
+Settings Menu (10 points):
+• Options to increase or decrease the game's visual brightness (10 points).
+• Game SFX volume controls, including a preset button to reset sound settings (10 points).
+• Entering the settings menu successfully (5 points).
+
+Achievements Menu:
+Achievements are initially locked and only unlock after their corresponding in-game events occur.
+• UI Design: Display minimal icons for various achievements. Locked achievements must appear dimmed, in grayscale, or with a lock icon, and their visual state must change regarding color and transparency upon unlocking (10 points).
+• Specific Achievements to implement: 
+  - Completion: Successfully finish the game (5 points). 
+  - Speedrun: Finish the game within a specific time limit that you define (5 points). 
+  - True Hunter: Defeat every type of enemy present in the game (5 points). 
+  - Defeat False Knight: Conquer the False Knight boss (5 points). 
+  - Custom Achievement: Complete one additional achievement of your own design (5 points).
+• Achievement Notification System: Implement an event-driven popup system that notifies the player immediately upon unlocking a new achievement.
+
+Inventory Menu:
+This menu can be accessed while the game is running by pressing the 'i' key.
+• Display the charms equipped by the player (15 points). We suggest utilizing the Observer design pattern for this implementation, worth 25 points.
+• Display brief textual explanations for each charm (10 points).
+• Implement the logic for selecting and equipping charms (10 points).
+
+Pause Menu:
+This menu is brought up by pressing the Escape key while the game is running.
+• Continue the currently in-progress game (30 points).
+• Display the active game cheat codes (10 points).
+• Save the current game state and exit (10 points).
+
+Part Two: The Core Game (815 Points Total)
+Game Environments and Basic Enemies Design:
+The game world is divided into distinct zones, each with its own unique atmosphere, graphical style, and set of challenges. You must select and fully implement at least two of the four environments described below, including their respective tilesets and background sprites. All environments must feature fixed platforms and environmental hazards such as blades, natural thorns, or sharp crystals. Colliding with these hazards will damage the player and force them to respawn at the last safe horizontal platform they touched. Proper placement of thorns and blades in each environment is required (10 points). When designing the traversal of these environments, you must independently determine the HP of regular mobs and the amount of damage they deal to the player, unless explicitly specified otherwise.
+
+Environment Options:
+1. Forgotten Crossroads: This ancient, atmospheric environment is characterized by ruins, rock formations, and a color palette of grays and dark blues, featuring predominantly stone platforms. The hazards in this area consist of sharp stone thorns embedded into the floors, ceilings, and walls.
+2. Greenpath: This lush, overgrown environment features a completely green color theme. Traversing it requires precise platforming to navigate around the dense, damaging plant blades lining the ground and walls.
+3. City of Tears: The capital of the game world features Gothic architecture, expansive windows, and a color scheme dominated by grays and purples. For this environment, you must implement a dynamic background rain effect, alongside metal blades and moving platforms as obstacles.
+4. Crystal Peaks: An industrial, sparkling mining environment featuring a pink and purple color theme. The primary hazards here are exceptionally sharp crystal formations that grow from the walls and floors, which significantly increase the difficulty of the platforming challenges.
+
+The breakdown of required elements for each chosen environment is as follows:
+• Inclusion of dynamic background objects intended to beautify the environment, such as trees, rocks, or lamps, that match the area's theme.
+• Background music appropriate for the specific environment (10 points).
+• Implementation of the general environmental layout (30 points).
+• Proper movement and respawn mechanics (10 points).
+• The elements must create a cohesive and harmonious environment (10 points).
+• Implementation of dynamics for at least one background object, such as an ambient animation for a tree or a flickering lamp (10 points).
+• Ambient suspended particle effects tailored to each environment to enhance visual aesthetics (10 points).
+
+Implementing the Enemy System:
+This section outlines the behavioral structure, artificial intelligence, and movement logic for the game's enemies. Note that any collision with an enemy's hitbox damages the player. The enemy system consists of two fixed mandatory enemies and two optional environment-specific enemies. You may spawn these enemies in various locations across the map in any quantity. Students are required to implement one ground-based enemy from their first chosen environment and one flying enemy from their second chosen environment, yielding a total of four basic enemy types.
+
+Ground Enemies: 
+The movement logic and artificial intelligence for all basic ground-based enemies are identical; they differ solely in their sprites, size, and movement speed. These creatures patrol in a straight line at a constant speed, ignoring the player's position. If a basic ground enemy encounters an obstacle like a wall or reaches the edge of a cliff, it will turn around and continue patrolling in the opposite direction. After patrolling in a straight path for a set period, the enemy stops and enters a brief resting idle state. Husk Hornhead Creature: This creature acts as a more advanced version of the basic ground enemies, though its fundamental movement mechanics remain similar. Environment-specific ground enemies include the Crawlid in the Forgotten Crossroads and the Tiktik in the City of Tears. 
+
+Flying Enemies:
+Upon spotting the player, the flying enemy records the player's current position in its memory. It plays a brief preparation animation or physical shake before initiating its attack sequence. Environment-specific flying enemies include the Mosquito (Vengefly) in the Forgotten Crossroads and the Mosscreep in Greenpath.
+
+Optional Chasing Enemies: 
+These enemies possess a defined field of view and aggro range. If the player enters this range, the enemy will actively pursue and attack them until one of them dies. In addition to standard chasing logic, each time these creatures spot the player, they perform a distinct, specialized movement or attack animation. 
+• Greenpath Environment: The Mossfly (or Moss Charger) initially camouflages itself as a stationary plant. To distinguish it from actual background plants, it must have a subtle idle animation. As soon as it spots the player, it breaks camouflage and charges in a straight line, unable to change direction once the charge begins. The attack ends either when it hits a wall, damages the player, or a specific duration elapses.
+• City of Tears Environment: The Winged Sentry spots the player, performs a quick wind-up, and charges aggressively in a completely horizontal line. Its movement speed significantly differs from other enemies.
+• Crystal Peaks Environment: The Crystal Crawler and Crystal Hunter creatures. After spotting the player, the Crystal Hunter will launch a projectile crystal toward the player's last known location after a brief delay.
+
+Stationary Enemies: 
+Complete and accurate implementation of the mandatory enemies is required for all students without exception. Their attacks continue until they hit an obstacle or fall off a ledge, noting that some enemies reposition during attacks. The distribution and presence of each creature within the levels must be carefully balanced. You may use standard enemy sprites, but the specific behavioral logic detailed here must be rigidly applied to each type. For certain charging enemies, the attack is blind; once initiated, it ignores any subsequent player movement. These enemies possess a rectangular vision hitbox in front of them, and upon detecting the player within it, they rush forward at high speed. 
+• Crystal Guardian Creature: This is the most advanced enemy required for this exercise. It remains stationary, looking only forward. If it spots the player within its line of sight, it will charge and fire a long-range laser beam. Firing the laser causes the enemy to temporarily enter an enraged state, during which its attack speed increases significantly. After the enrage timer expires, the enemy returns to its original position and resumes its standard behavior. The health and movement speeds of all enemies must be balanced according to their AI complexity to provide a fair but difficult challenge. Required enemy types across all categories include the Husk Hornhead, Winged Sentry, Crystal Crawler, Mosscreep, Crystal Hunter, Mossfly, Crawlid, and Mosquito.
+
+Secret Rooms & Breakable Walls: 
+Discovering secrets and hidden rooms is a core atmospheric attraction of the Metroidvania genre. In this section, you must implement the mechanics for breakable walls that crumble when struck. The wall must be able to move freely but remain vulnerable to nail weapon hits, requiring exactly three hits to be completely destroyed. Upon breaking, you must play an appropriate stone-breaking SFX, generate visual soil particles, and display an animation of the rocks collapsing (15 points). Before the wall is destroyed, the secret room behind it should be completely dark or obscured, becoming visible to the player only once the wall is broken (15 points). As the secret wall collapses, its collision framing must be permanently disabled to clear the entry path. Ensure you place a valuable reward, such as the Void Heart Charm, in this hidden room (15 points). Normal walls should feature tiny cracks to differentiate them visually from breakable walls.
+
+Platforming Systems and Environmental Challenges: 
+A mainstay of Metroidvania game design is complex platforming challenges. In Knight Hollow, you must design a minimal gauntlet section of the map that lacks solid ground or walls, forcing the player to seamlessly combine their movement abilities to succeed. This includes successfully implementing mid-air ability resets so the player can remain airborne without encountering physics bugs (20 points). Logic must be perfectly implemented so that performing a successful downward "pogo" strike on hazard blades instantly refreshes the player's dash and double-jump abilities. The hitboxes must be meticulously clean to ensure the character does not get caught on platform edges (110 points).
+
+Enemy Interaction & Spawning: 
+When enemies are defeated, their active sprites must be replaced by a lifeless corpse sprite to enhance visual interaction (15 points). Enemies should be programmed so that if the player leaves the room or exceeds a certain distance, they will respawn, allowing the player to fight them again upon returning (20 points). Implementing ground enemies is worth 20 points, flying enemies 30 points, and stationary enemies 30 points each.
+
+Interaction with Minor Characters (NPC Zote):
+To create a more dynamic world and introduce narrative elements, you are required to implement a system for interacting with non-playable characters. Specifically, the popular character Zote must be integrated into the map at a designated location. He must possess a distinct idle animation, such as breathing, rather than remaining completely static (15 points). 
+• Dialogue Box System: When the player approaches Zote, an interaction prompt must appear on the screen. Pressing this key must pause the player's movement and open a dialogue text box at the top or bottom of the screen. The text must appear word-by-word. Zote must have at least three distinct, consecutive lines of dialogue that cycle when the player presses the Enter key (15 points). 
+• Zote's Voice SFX: A defining trait of Zote is his distinct grumbling voice. The audio system must randomly play one of Zote's signature growl sound effects every time a new line of dialogue is initiated (10 points). 
+• Zote Attack Interaction: If the player strikes Zote with their nail, he will become temporarily enraged and launch an attack that deals zero damage to the player (20 points). 
+• Dynamic Dialogue States: If the player speaks to Zote after exhausting his initial three dialogues, he must not repeat the original lines. Instead, his dialogue state must switch so that each subsequent interaction yields one of his famous "Precepts" in a single sentence format (10 points).
+
+Boss Fight - False Knight: 
+The climax of the project is the encounter with the main boss, the False Knight. This battle tests the player's combat and movement skills while simultaneously evaluating your ability to implement a complex state machine, dynamic AI decision-making, dynamic camera controls, and advanced hitbox management. While displaying a visible health bar for the boss is not required, you must assign him a reasonable and balanced pool of HP. 
+• Enclosed Arena: As soon as the player enters the boss arena, the entrance and exit gates must automatically lock. The player cannot leave until either they die or the boss is defeated. Additionally, the game camera must instantly clamp to the boundaries of the arena (10 points).
+• Dynamic Camera Shake: To convey the heavy weight of the boss's armor and the power of his strikes, all heavy attacks and hard landings must trigger a temporary screen shake proportional to the impact's intensity.
+• Boss Moveset and AI Decision System: The False Knight boss must feature an intelligent and unpredictable AI decision-making system based on distance evaluation, a randomization factor, and an anti-spam mechanism. The AI must continuously evaluate the player's proximity and dynamically adjust the probability of selecting certain attacks (10 points). The AI must also incorporate a random element into its attack weighting so the player cannot perfectly predict its pattern (10 points). Finally, the logic must strictly prevent the boss from repeating the exact same attack multiple times in a row (10 points).
+
+Based on this framework, the False Knight utilizes five primary moves:
+1. Mace Slam: The boss's most common attack involves violently slamming his mace into the ground directly in front of him. The closer the player is to the boss, the higher the AI's probability of selecting this move (10 points).
+2. Running Charge: If there is a large gap between the player and the boss, the False Knight will become enraged and charge horizontally across the arena at high speed (10 points).
+3. Offensive Leap: To close medium or long distances unpredictably, the boss will perform a high, arcing jump toward the player's position (10 points).
+4. Shockwave Landing: Upon landing from a high jump, the boss impacts the ground heavily, generating a shockwave that travels outward. This wave gradually accelerates and deals double the damage of a standard nail attack. This mechanic is only activated during the second phase of the fight (10 points).
+5. Defensive Leap: If the boss receives multiple heavy hits within a short time frame, it will execute a sudden backward leap to create defensive distance (10 points). 
+
+• Stun Mechanism: Once the False Knight's HP drops to 50%, the boss must immediately cease all attacks, fall to the ground, and enter a stunned state for a set duration. During this window, his armor opens, exposing the vulnerable creature inside with a new, active hitbox (15 points).
+• Speed Scaling: After the stun period concludes, the False Knight stands back up and enters his second phase. His overall movement speed, attack animations, and the AI's decision-making rate must increase significantly to heighten the battle's difficulty (15 points).
+
+Game Controls and Movement Concepts: 
+This section details the game's 2D physics infrastructure, including acceleration, gravity, and ground/air state tracking. All of the Knight's character animations must dynamically alter to reflect the correct facing direction.
+• Horizontal Movement: The character moves left and right using the Arrow Keys by default, though these inputs should be rebindable via the settings menu (20 points).
+• Attack Ability: Pressing the 'X' key triggers the nail attack animation; any enemies or creatures within the generated hitbox must register damage.
+• Dash Ability: Pressing the 'C' key makes the character instantly dash a set horizontal distance at high speed in a fraction of a second. During the dash frames, gravity must be completely neutralized to keep the trajectory perfectly horizontal. This requires a specific dash animation and an internal cooldown timer (10 points).
+• Jump Ability: Pressing the 'Z' key applies upward vertical velocity to the character, who is then pulled back down to platforms by gravity. The jump must feature proportional ascending and descending animations (10 points).
+• Double Jump: While airborne—whether from an initial jump or simply falling off a ledge—the player can press 'Z' again to execute a mid-air double jump. This secondary jump must utilize a distinct animation from the grounded jump (10 points).
+• Variable Jump Height Physics: Jump height must not be perfectly static. The apex of the Knight's jump must scale based on how long the player holds the jump key. If the player releases the key early, upward vertical velocity must be immediately cut, causing a faster fall. This dynamic physics approach is required to cross paths of varying heights (10 points).
+
+Soul & Health System:
+The Knight's Health Management System is based on two key elements: discrete health masks and a replenishable Soul Vessel. Character health should be displayed discretely as a series of at least 5 masks in the corner of the screen (5 points). Correct logic for darkening the masks must be implemented so that each mask visually dims as health is lost (5 points). The health masks and soul container must be graphically and dynamically displayed in the HUD, complete with a brief flash animation on the mask icons when the Knight takes damage, similar to a hit-flash effect (10 points). Each time the player encounters an enemy, projectile, or spike hazard, health decreases. After taking damage, the character must gain invincibility frames for 1 second to avoid consecutive health loss. If the number of masks reaches zero, the player is returned to the starting position of the game, and their health bar is refilled (30 points).
+
+The Soul Vessel acts as an energy source used both to cast spells and restore health. It is displayed as a circular reservoir; as soul is gained, the white liquid level inside visibly rises, and as soul is spent, it visibly lowers. An animation of the masks and the gradual filling of the soul reservoir must be implemented dynamically (20 points). The maximum capacity is 99 souls, and striking a normal enemy or boss with the Nail grants exactly 11 souls. The amount of stored soul must remain stable and not disappear when transitioning between rooms (20 points). 
+• Focus Healing: Players can initiate health recovery by holding the 'A' key. The healing action requires 1.5 seconds of continuous focus, during which the character must remain completely still on the ground and an appropriate animation must play (5 points). If this time is successfully completed, a specific amount of the soul reservoir is consumed, and one health mask is restored (5 points). However, if the player releases the key prematurely or takes damage during the focus process, the action is cancelled, no health is recovered, and no soul should be consumed (5 points).
+
+Advanced Movement Abilities:
+• Downward Pogo: If the player holds the Down Arrow key and presses the attack button while suspended in the air, the Knight will strike downwards. If this downward strike hits spikes or mobs, the Knight takes no damage, the character bounces upward, and their mid-air dash and double-jump are reset. Note that the ability reset granted by a successful pogo is time-limited and resets with each jump; it is not possible to continuously chain upward acceleration by repeatedly jumping and clinging, as this behavior must be restricted.
+• Wall Slide & Mantis Claw: If the character is airborne, holding the directional key toward a vertical wall causes them to cling to it and slide down very slowly. In this state, the wall cling animation must activate. Pressing the jump button while clinging allows the Knight to leap off the wall. Moving in the opposite direction or releasing the key cancels the wall slide (20 points). You must implement logic to prevent the player from continuously scaling a single wall by jumping and clinging repeatedly.
+
+Spells and Magic Abilities:
+During battle, the player can consume 33 souls from their reserve to cast magical abilities (25 points). During the casting animation of any spell, the player temporarily loses movement control.
+• Vengeful Spirit: This spell shoots a magical projectile horizontally in the direction the player is facing. It moves independently of gravity, passes through enemy bodies to deal continuous damage along its path, and is destroyed upon hitting environmental walls.
+• Howling Wraiths: This ability creates an upward magical explosion directly above the player's head, designed specifically to hit flying or falling enemies. Unlike a projectile, this magical effect remains fixed in place for a short duration, dealing three quick, consecutive hits to enemies caught in its hitbox (25 points).
+
+Charms and Gameplay Modifiers:
+Charms are special items that provide passive upgrades or gameplay modifiers to give the player a unique experience. You must implement an inventory system that allows players to manage their capacity and equip these items (10 points).
+1. Quick Slash: Greatly increases weapon attack speed and reduces the cooldown after each hit. 
+2. Soul Catcher: Increases the amount of soul received for each successful Nail hit on enemies.
+3. Void Heart: Enhances the Knight's abilities by increasing the damage dealt by spells and magic by 50%. This charm also alters the visual animations of equipped abilities to their black "Void" variants (20 points).
+4. Quick Focus: Increases the speed of the focus healing process.
+5. Heavy Blow: Significantly increases the knockback force applied to enemies upon striking them.
+6. Unbreakable Strength: Strengthens the Knight, reducing the damage they take from enemies while increasing the damage of their normal Nail hits.
+7. Sharp Shadow: Enhances the dash ability, allowing the player to dash directly through enemies to deal damage while remaining invincible. It also increases dash distance by 20% and requires a unique shadow dash animation to be implemented (20 points).
+8. Dashmaster: Reduces the cooldown between dashes, allowing the player to dash in shorter time intervals (10 points).
+
+Charm Notches & Inventory Limits:
+The player possesses three slots, called "notches," used to equip charms. Each active charm occupies one notch. The system must prevent the player from equipping a fourth charm if their capacity is full. In the graphical inventory menu accessed by pressing the 'i' key, the equipped or unequipped status of all available charms must be displayed, and the player can enable or disable them interactively (30 points).
+
+Part Three: Cheat Codes (25 Points Total)
+To facilitate testing, debugging, and grading by teaching assistants, you must implement a robust cheat code system. These codes should be activated via specific keyboard combinations, such as holding Left Ctrl plus a designated key, without interfering with standard gameplay controls.
+• Insta-Kill or Time Dilation: Implement a mechanic to either instantly kill all enemies on screen or drastically slow down time (10 points).
+• Noclip / Spectator Mode: Grants the ability to fly by disabling gravity and collision boxes, while increasing movement speed so the character can safely traverse the map without taking damage (5 points).
+• Boss Arena Teleport: Instantly teleports the character directly to the beginning of the False Knight boss fight area to facilitate easy testing (5 points).
+• God Mode: Enables complete invincibility, preventing the player from taking damage from enemies, blades, or the boss (5 points).
+• Max Soul & Emergency Heal: Instantly refills the Soul Vessel to maximum capacity and grants extra health masks (5 points).
+
+Part Four: Visual Details and HUD (115 Points Total)
+The goal of implementing visual details and dynamic UI elements is to enhance the atmospheric feel of the game and convey realism. You will receive up to 100 points specifically dedicated to the overall visual beauty and coordination of your game.
+• Dynamic Camera Tracking: The game camera should track the main character, keeping them centered on the screen with a soft lerp (follow) effect. The camera must smoothly clamp to the map boundaries so it does not render space outside the playable area (20 points).
+• Screen Shake: The game screen should briefly vibrate during specific events to create a sense of impact. This includes shaking when the Knight takes damage (10 points), when executing heavy abilities (10 points), and when the boss performs its signature moves (10 points).
+• Enemy Knockback: When striking normal enemies, they must be pushed backward a short distance. The closer the player is, the further the enemy should be knocked back (10 points). 
+• Player Damage Effects: When the Knight takes damage, they must be knocked back a few frames, and the player must temporarily lose control of the character (20 points).
+• VFX Death Effects: When enemies are killed, their bodies should be destroyed using distinct particle sprites (15 points). 
+• Nail Slash Animation: A sharp, fast white visual effect must appear in the exact direction of the impact—left, right, up, or down—when the attack key is pressed (20 points).
+• Character Movement Animations: The Knight must not be a static image. You must implement distinct sprite sheet animations for running (10 points), jumping and falling (10 points), and a baseline idle mode (10 points).
+• Custom Cursor: Change the default mouse cursor to a custom graphical style fitting the game (10 points).
+• Menu Background Themes: Implement multiple distinct visual background themes for the game's menus, with the ability for the player to choose and switch between them (25 points).
+• Game Theme: Utilize custom fonts tailored to the game's aesthetic rather than default system fonts (10 points).
+• End of Game Screen: If the player wins by defeating the final boss, a customized victory page must be displayed. This screen should detail the total time elapsed, the number of enemies killed, and the number of player deaths. It must also feature buttons to restart the game or return to the main menu (10 points).
+
+Part Five: Peripheral Systems and Data Infrastructure (90 Points Total)
+This section evaluates the sustainability and technical design of the game's underlying systems.
+• Audio System: Implement and play high-quality sound effects seamlessly. Audio cues are required for the player or enemies taking damage (10 points), the Nail slash effect (10 points), gaining soul (10 points), and successfully completing the focus healing process (10 points).
+• Custom Victory Song: Add a custom music track that plays when the player reaches the end-of-game victory screen (10 points).
+• Dynamic Background Music (BGM): The game must support more than one background music track. When transitioning between zones—such as moving from Greenpath to Crystal Peaks—the previous environment's music must slowly fade out, and the new area's music must begin playing without sudden interruptions. The original Hollow Knight theme song should play on the main menu (20 points).
+• Data Persistence (JSON Storage): The user must be able to save their game and return to it later. All vital game state information, such as the player's map coordinates, boss defeat status, number of health masks, soul amount, and unlocked achievements, must be securely stored in a JSON file (30 points). We highly suggest creating a dedicated data class to manage this serialization efficiently. Alternatively, you may utilize an SQL or NoSQL database for data storage to earn the points for this section.
+• Game Localization: Implement a feature in the Settings menu that allows players to dynamically switch the game's user interface between two different languages. This localization must apply dynamically to all UI elements, including menus, settings options, error messages, and pop-ups. Important note: Simply duplicating the project files to create two separate language versions will not earn any points; the underlying text structure itself must be dynamic. Graphic libraries generally support right-to-left fonts, though using Persian is not strictly necessary; you may use English and French, for example (30 points).
